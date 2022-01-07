@@ -17,6 +17,9 @@ contract MyEpicNFT is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    // name and symbol
+    string public collectionName;
+    string public collectionSymbol;
     string baseSvg =
         "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='black' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
 
@@ -60,7 +63,9 @@ contract MyEpicNFT is ERC721URIStorage {
 
     // We need to pass the name of our NFTs token and its symbol.
     constructor() ERC721("SquareNFT", "SQUARE") {
-        console.log("This is my NFT contract. Woah!");
+        collectionName = name();
+        collectionSymbol = symbol();
+        console.log("This is my NFT contract. NEATO!");
     }
 
     function random(string memory input) internal pure returns (uint256) {
