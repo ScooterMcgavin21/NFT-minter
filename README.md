@@ -10,4 +10,4 @@ For testing contracts run command:
 npx hardhat test
 ```
 
-## [Frontend](https://github.com/ScooterMcgavin21/NFT-minter/blob/main/client/README.md)
+## [Frontend](https://github.com/ScooterMcgavin21/NFT-minter/tree/main/client)
