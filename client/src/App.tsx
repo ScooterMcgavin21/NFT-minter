@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import twitterLogo from './assets/twitter-logo.svg'
+import useDetectWallet from './hooks/useDetectWallet'
 import './styles/App.css'
 
 // Constants
@@ -10,43 +11,8 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`
 // const TOTAL_MINT_COUNT = 50
 
 const App = () => {
-  const [currentAccount, setCurrentAccount] = useState('')
-  /**
-   * check if ethereum object is in window
-   */
-  const detectWallet = async () => {
-    const { etherum } = window
-    if (!etherum) {
-      console.log('install metamask')
-      return
-    } else {
-      console.log('eth detected', etherum)
-    }
-    const accounts = await ethereum.request({ method: 'eth_accounts' })
-    if (accounts.length !== 0) {
-      const accounts = accounts[0]
-      console.log('Found Account:', account)
-      setCurrentAccount(account)
-    } else {
-      console.log('No account Found')
-    }
-  }
-  const connectWallet = async () => {
-    try {
-      const { ethereum } = window
+  const { currentAccount, connectWallet } = useDetectWallet()
 
-      if (!ethereum) {
-        alert('Get MetaMask')
-        return
-      }
-      // request access
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-      console.log('Connected', accounts[0])
-      setCurrentAccount(accounts[0])
-    } catch (error) {
-      console.log(error)
-    }
-  }
   const renderNotConnectedContainer = () => (
     <button
       onClick={connectWallet}
@@ -55,12 +21,7 @@ const App = () => {
       Connect to Wallet
     </button>
   )
-  /**
-   * run upon page load
-   */
-  useEffect(() => {
-    detectWallet()
-  }, [])
+
   return (
     <div className="App">
       <div className="container">
@@ -71,8 +32,8 @@ const App = () => {
             renderNotConnectedContainer()
           ) : (
             <button
-              onClick={null}
-              className="cta-button connecct-wallet-button"
+              onClick={connectWallet}
+              className="cta-button connect-wallet-button"
             >
               Mint NFT
             </button>
